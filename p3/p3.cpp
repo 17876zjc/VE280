@@ -3,7 +3,8 @@
 
 int main(int argc, char *argv[])
 {
-    species_t flytrap = readSpecies("flytrap");
-    printSpecies(flytrap);
+    world_t world;
+    initWorld(world,"species","");//TODO catch if return false
+    printWorld(world);
     return 0;
 }

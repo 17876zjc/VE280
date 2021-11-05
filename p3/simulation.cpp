@@ -3,16 +3,25 @@
 
 bool initWorld(world_t &world, const string &speciesFile,const string &creaturesFile)
 {
-    ifstream iFileSpecies;
+    world.numSpecies = 0;
+    world.numCreatures = 0;
+    readSpeciesSummary(world,speciesFile);
 
-    iFileSpecies.close();
-    return true;
+    return true; // TODO return true if open successful
 }
 
 species_t readSpecies(const string filename) //Read a species from a file with name specified
 {
     species_t newSpecies;
-    newSpecies.name = filename;
+    string speciesName = filename;
+    while(true)
+    {
+        long unsigned index = speciesName.find("/",0);
+        if(index == string::npos) break;
+        speciesName = speciesName.substr(index+1,string::npos);
+    }
+
+    newSpecies.name = speciesName;
     newSpecies.programSize = 0;
     ifstream iFile;
     iFile.open(filename);
@@ -58,7 +67,7 @@ opcode_t matchOpCode(const string op) // match the Opcode number with op name.
     return opcode_t(-1); // Error to be catched
 }
 
-void printSpecies (const species_t species) // Print out a species(for debug use)
+void printSpecies (const species_t & species) // Print out a species(for debug use)
 {
     cout << "The name is: "<< species.name<<endl;
     cout << "It has: "<<species.programSize << " programs"<<endl;
@@ -77,7 +86,36 @@ void printSpecies (const species_t species) // Print out a species(for debug use
     } 
 }
 
+void printWorld (const world_t & world)
+{
+    for(int i = 0; (unsigned)i < world.numSpecies ; i++)
+    {
+        printSpecies(world.species[i]);
+        cout<<endl;
+    }
+}
+
 string strFix(const string str) //Fix a string read from a File into a normal one.
 {
     return str;
+}
+
+
+bool readSpeciesSummary(world_t & world,const string speciesFile)
+{
+    ifstream iFilesummary;
+
+    iFilesummary.open(speciesFile); //Error to be thrown if bad file open
+    string dir;
+    getline(iFilesummary,dir);
+    string fname;
+    while(getline(iFilesummary,fname) && (!fname.empty()))
+    {
+        string fulldir = dir+"/"+fname;
+        world.species[world.numSpecies] = readSpecies(fulldir);
+        world.numSpecies++;
+    }
+
+    iFilesummary.close();
+    return true; //TODO return true if successful
 }

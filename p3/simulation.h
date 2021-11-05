@@ -58,6 +58,8 @@ creature_t *getCreature(const grid_t &grid, point_t location);
 species_t readSpecies(const string filename);
 instruction_t analyzeInstruction(const string line);
 opcode_t matchOpCode(const string op);
-void printSpecies (const species_t species);
+void printSpecies (const species_t & species);
+void printWorld (const world_t & world);
 string StrFix(const string str);
+bool readSpeciesSummary(world_t & world,const string speciesFile);
 #endif
