@@ -55,11 +55,16 @@ creature_t *getCreature(const grid_t &grid, point_t location);
 //
 // EFFECTS: Returns a pointer to the creature at "location" in "grid".
 
+bool destructWorld(world_t & world);
+
 species_t readSpecies(const string filename);
 instruction_t analyzeInstruction(const string line);
 opcode_t matchOpCode(const string op);
+direction_t matchDirection(const string dir);
+species_t * matchSpecies(species_t* species,const unsigned int num,const string str);
 void printSpecies (const species_t & species);
 void printWorld (const world_t & world);
 string StrFix(const string str);
 bool readSpeciesSummary(world_t & world,const string speciesFile);
+bool readCreatures(world_t & world,const string worldFile);
 #endif

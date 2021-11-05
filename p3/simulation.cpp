@@ -6,8 +6,23 @@ bool initWorld(world_t &world, const string &speciesFile,const string &creatures
     world.numSpecies = 0;
     world.numCreatures = 0;
     readSpeciesSummary(world,speciesFile);
-
+    readCreatures(world,creaturesFile);
     return true; // TODO return true if open successful
+}
+
+bool destructWorld(world_t & world)
+{
+    for(int i = 0;(unsigned)i < MAXHEIGHT; i++)
+    {
+        for(int j = 0; (unsigned)j < MAXWIDTH; j++)
+        {
+            if(world.grid.squares[i][j] != NULL)
+            {
+                delete(world.grid.squares[i][j]);
+            }
+        }
+    }
+    return true;//TODO return false is delete unsuccessful;
 }
 
 species_t readSpecies(const string filename) //Read a species from a file with name specified
@@ -67,6 +82,30 @@ opcode_t matchOpCode(const string op) // match the Opcode number with op name.
     return opcode_t(-1); // Error to be catched
 }
 
+direction_t matchDirection(const string dir)
+{
+    for(int i = 0; i < 4;i++)
+    {
+        if(dir == directName[i])
+        {
+            return direction_t(i);
+        }
+    }
+    return direction_t(-1);// Error to be catched
+}
+
+species_t * matchSpecies(species_t* species,const unsigned int num,const string str)
+{
+    for(int i = 0;(unsigned)i < num; i++)
+    {
+        if(species[i].name == str)
+        {
+            return species+i;
+        }
+    }
+    return NULL;//if not found
+}
+
 void printSpecies (const species_t & species) // Print out a species(for debug use)
 {
     cout << "The name is: "<< species.name<<endl;
@@ -86,6 +125,29 @@ void printSpecies (const species_t & species) // Print out a species(for debug u
     } 
 }
 
+void printGrid(const grid_t &grid)
+{
+    //cout<<"Height: "<<grid.height<<" Width: "<<grid.width<<endl;
+    for(int i = 0;(unsigned)i < grid.height; i++)
+    {
+        for(int j = 0;(unsigned)j < grid.width; j++)
+        {
+            //cout<<i<<"\t"<<j<<endl;
+            if(grid.squares[i][j] == NULL)
+            {
+                cout<<"____ ";
+            }
+            else
+            {
+                string nameShort = (grid.squares[i][j]->species->name).substr(0,2);
+                cout<<nameShort<<"_"<<directShortName[(int)(grid.squares[i][j]->direction)]<<" ";
+            }
+            //cout<<grid.squares[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+
 void printWorld (const world_t & world)
 {
     for(int i = 0; (unsigned)i < world.numSpecies ; i++)
@@ -93,6 +155,7 @@ void printWorld (const world_t & world)
         printSpecies(world.species[i]);
         cout<<endl;
     }
+    printGrid(world.grid);
 }
 
 string strFix(const string str) //Fix a string read from a File into a normal one.
@@ -118,4 +181,52 @@ bool readSpeciesSummary(world_t & world,const string speciesFile)
 
     iFilesummary.close();
     return true; //TODO return true if successful
+}
+
+bool readCreatures(world_t & world, const string worldFile)
+{
+    for(int i = 0;(unsigned)i < MAXHEIGHT;i++)
+    {
+        for(int j = 0;(unsigned)j < MAXWIDTH;j++)
+        {
+            (world.grid.squares)[i][j] = NULL;
+        }
+    }
+
+    ifstream iFileWorld;
+    iFileWorld.open(worldFile);
+    string line;
+    getline(iFileWorld,line); // read row
+    world.grid.height = atoi(line.c_str());
+    getline(iFileWorld,line); // read column
+    world.grid.width = atoi(line.c_str());
+
+    while(getline(iFileWorld,line)&&(!line.empty()))
+    {
+        long unsigned index = 0;
+        index = line.find(" ",0);
+        string species = line.substr(0,index);//species name
+        line = line.substr(index+1,string::npos);
+        index = line.find(" ",0);
+        string dir = line.substr(0,index);//direction
+        line = line.substr(index+1,string::npos);
+        index = line.find(" ",0);
+        string initRow_s = line.substr(0,index);//initial-row
+        int initRow = atoi(initRow_s.c_str());
+        line = line.substr(index+1,string::npos);
+        string initCol_s = line;//initial-column
+        int initCol = atoi(initCol_s.c_str());
+
+        //cout<<species<<" "<<dir<<" "<<initRow_s<<" "<<initCol_s<<endl;
+        creature_t *creature = new creature_t;
+        creature->location = point_t{initRow,initCol};
+        creature->direction = matchDirection(dir);
+        creature->species = matchSpecies(world.species,world.numSpecies,species);
+        creature->programID = 0;
+
+
+        world.grid.squares[initRow][initCol] = creature;
+    }
+    iFileWorld.close();
+    return true;//TODO return false if error
 }
