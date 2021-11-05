@@ -1,0 +1,27 @@
+{
+    "files.associations": {
+        "xstring": "cpp",
+        "xhash": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp",
+        "*.tcc": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "string_view": "cpp",
+        "xlocale": "cpp",
+        "fstream": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "queue": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "stack": "cpp",
+        "vector": "cpp",
+        "xlocinfo": "cpp",
+        "functional": "cpp",
+        "istream": "cpp",
+        "iostream": "cpp"
+    }
+}
