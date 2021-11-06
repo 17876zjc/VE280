@@ -25,6 +25,46 @@ bool destructWorld(world_t & world)
     return true;//TODO return false is delete unsuccessful;
 }
 
+point_t adjacentPoint(point_t pt, direction_t dir)
+{
+    switch(dir)
+    {
+        case EAST:
+            pt.c++;
+            break;
+        case SOUTH:
+            pt.r++;
+            break;
+        case WEST:
+            pt.c--;
+            break;
+        case NORTH:
+            pt.r--;
+            break;
+    }
+    return pt;
+}
+
+direction_t leftFrom(direction_t dir)
+{
+    return (direction_t)(((int)(dir)+3)%4);
+}
+
+direction_t rightFrom(direction_t dir)
+{
+    return (direction_t)(((int)(dir)+1)%4);
+}
+
+instruction_t getInstruction(const creature_t &creature)
+{
+    return creature.species->program[creature.programID];
+}
+
+creature_t *getCreature(const grid_t &grid, point_t location)
+{
+    return (grid.squares)[location.r][location.c];
+}
+
 species_t readSpecies(const string filename) //Read a species from a file with name specified
 {
     species_t newSpecies;
@@ -203,19 +243,14 @@ bool readCreatures(world_t & world, const string worldFile)
 
     while(getline(iFileWorld,line)&&(!line.empty()))
     {
-        long unsigned index = 0;
-        index = line.find(" ",0);
-        string species = line.substr(0,index);//species name
-        line = line.substr(index+1,string::npos);
-        index = line.find(" ",0);
-        string dir = line.substr(0,index);//direction
-        line = line.substr(index+1,string::npos);
-        index = line.find(" ",0);
-        string initRow_s = line.substr(0,index);//initial-row
-        int initRow = atoi(initRow_s.c_str());
-        line = line.substr(index+1,string::npos);
-        string initCol_s = line;//initial-column
-        int initCol = atoi(initCol_s.c_str());
+        istringstream istream;
+        istream.str(line);
+        string species;//species name
+        string dir;//direction
+        int initRow;//initial-row
+        int initCol;//initial-column
+
+        istream >> species >> dir >> initRow >> initCol;
 
         //cout<<species<<" "<<dir<<" "<<initRow_s<<" "<<initCol_s<<endl;
         creature_t *creature = new creature_t;
