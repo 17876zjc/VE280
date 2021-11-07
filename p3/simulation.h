@@ -67,4 +67,6 @@ void printWorld (const world_t & world);
 string StrFix(const string str);
 bool readSpeciesSummary(world_t & world,const string speciesFile);
 bool readCreatures(world_t & world,const string worldFile);
+
+bool simulateRound(world_t & world);
 #endif
