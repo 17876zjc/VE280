@@ -10,21 +10,6 @@ bool initWorld(world_t &world, const string &speciesFile,const string &creatures
     return true; // TODO return true if open successful
 }
 
-bool destructWorld(world_t & world)
-{
-    for(int i = 0;(unsigned)i < MAXHEIGHT; i++)
-    {
-        for(int j = 0; (unsigned)j < MAXWIDTH; j++)
-        {
-            if(world.grid.squares[i][j] != NULL)
-            {
-                delete(world.grid.squares[i][j]);
-            }
-        }
-    }
-    return true;//TODO return false is delete unsuccessful;
-}
-
 void simulateCreature(creature_t &creature, grid_t &grid, bool verbose)
 {
     bool flag = true;
@@ -331,12 +316,6 @@ void printWorld (const world_t & world)
     */
     printGrid(world.grid);
 }
-
-string strFix(const string str) //Fix a string read from a File into a normal one.
-{
-    return str;
-}
-
 
 bool readSpeciesSummary(world_t & world,const string speciesFile)
 {

@@ -16,13 +16,6 @@ bool initWorld(world_t &world, const string &speciesFile,const string &creatures
 // "creaturesFile". This initializes all the components of
 // "world". Returns true if initialization is successful.
 
-// MODIFIES: world
-//
-// EFFECTS: Initialize "world" given the species summary file
-// "speciesFile" and the world description file
-// "creaturesFile". This initializes all the components of
-// "world". Returns true if initialization is successful.
-
 void simulateCreature(creature_t &creature, grid_t &grid, bool verbose);
 // REQUIRES: creature is inside the grid.
 //
@@ -54,18 +47,30 @@ creature_t *getCreature(const grid_t &grid, point_t location);
 //
 // EFFECTS: Returns a pointer to the creature at "location" in "grid".
 
-bool destructWorld(world_t & world);
-
 species_t readSpecies(const string filename);
+//EFFECTS: Returns a species read from a given file name.
 instruction_t analyzeInstruction(const string line);
+//EFFECTS: Returns an instructiton analyzed from a given string.
 opcode_t matchOpCode(const string op);
+//EFFECTS: Returns a matched opcode enumerate from a given string.
 direction_t matchDirection(const string dir);
+//EFFECTS: Returns a matched direction enumerate from a given string.
 species_t * matchSpecies(species_t* species,const unsigned int num,const string str);
+//EFFECTS: Returns a pointer to a matching species in a species array with a given string.
 void printSpecies (const species_t & species);
+//EFFECTS: Print a species information to console(for bebug use).
 void printWorld (const world_t & world);
-string StrFix(const string str);
+//EFFECTS: Print a world into console
 bool readSpeciesSummary(world_t & world,const string speciesFile);
+//EFFECTS: Read a species file and store the data in world
+//
+//MODIFIES: world
 bool readCreatures(world_t & world,const string worldFile);
-
+//EFFECTS: Read a creatures file and store the data in world
+//
+//MODIFIES: world
 bool simulateRound(world_t & world,bool verbose);
+//EFFECTS: Simulate the game
+//
+//MODIFIES: world
 #endif
