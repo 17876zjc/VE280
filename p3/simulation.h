@@ -2,7 +2,6 @@
 #define SIMULATION_H
 
 #include "world_type.h"
-#include <String>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -68,5 +67,5 @@ string StrFix(const string str);
 bool readSpeciesSummary(world_t & world,const string speciesFile);
 bool readCreatures(world_t & world,const string worldFile);
 
-bool simulateRound(world_t & world);
+bool simulateRound(world_t & world,bool verbose);
 #endif
