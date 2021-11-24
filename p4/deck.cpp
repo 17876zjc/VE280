@@ -1,7 +1,7 @@
 #include "deck.h"
 #include <iostream>
 using namespace std;
-
+//////////////////
 Deck::Deck()
 {
     next = 0;
@@ -15,6 +15,7 @@ Deck::Deck()
             count ++;
         }
     }
+    //////////////////
 }
 
 void Deck::reset()
@@ -68,9 +69,11 @@ Card Deck::deal()
         next++;
         return deck[next-1];
     }
+    //////////////////
 }
 
 int Deck::cardsLeft()
 {
     return DeckSize-next;
+    //////////////////
 }

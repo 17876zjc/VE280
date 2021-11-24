@@ -10,7 +10,7 @@
 #include "rand.h"
 
 using namespace std;
-
+//////////////////
 void deckShuffle(Deck& deck, Player * player);
 
 int main(int argc, char*argv[])
@@ -26,7 +26,7 @@ int main(int argc, char*argv[])
     {
         cerr<<"No matching player type!"; exit(0);
     }
-    
+    //////////////////
     Deck deck= Deck();
     deckShuffle(deck,player);
     int thishand;
@@ -43,7 +43,7 @@ int main(int argc, char*argv[])
         }
         Hand playerHand = Hand();
         Hand dealerHand = Hand();
-
+        //////////////////
         int wager = player->bet(bankroll,minimum);
         cout << "Player bets " << wager << endl;
         
@@ -52,7 +52,7 @@ int main(int argc, char*argv[])
         cout << "Player dealt "<<SpotNames[static_cast<int>(card.spot)]<<" of "<<SuitNames[static_cast<int>(card.suit)]<<endl;
         player->expose(card);
         playerHand.addCard(card);
-
+        //////////////////
         card = deck.deal();
         cout << "Dealer dealt "<<SpotNames[static_cast<int>(card.spot)]<<" of "<<SuitNames[static_cast<int>(card.suit)]<<endl;
         player->expose(card);
@@ -94,7 +94,7 @@ int main(int argc, char*argv[])
             bankroll -= wager;
             continue;
         }
-
+        //////////////////
         cout<<"Dealer's hole card is "<<SpotNames[static_cast<int>(dealerHole.spot)]<<" of "<<SuitNames[static_cast<int>(dealerHole.suit)]<<endl;
         player->expose(dealerHole);
         while (dealerHand.handValue().count < 17)
@@ -111,7 +111,7 @@ int main(int argc, char*argv[])
             bankroll += wager;
             continue;
         }
-
+        //////////////////
         if(playerHand.handValue().count > dealerHand.handValue().count)
         {
             cout << "Player wins\n";
@@ -127,13 +127,14 @@ int main(int argc, char*argv[])
             cout << "Push\n";
         }
     }
-
+    //////////////////
     cout << "Player has " << bankroll << " after " << thishand-1 << " hands\n";
     return 0;
 }
 
 void deckShuffle(Deck& deck, Player * player)
 {
+    //Shuffle the deck
     cout << "Shuffling the deck\n";
     for(int i = 0;i < 7;i++)
     {

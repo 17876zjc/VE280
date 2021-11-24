@@ -4,6 +4,7 @@ Hand::Hand()
 {
     curValue.count = 0;
     curValue.soft = false;
+    //////////////////
 }
 
 void Hand::discardAll()
@@ -53,4 +54,5 @@ HandValue Hand::handValue() const
     {
         return curValue;
     }
+    //////////////////
 }

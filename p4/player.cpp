@@ -7,7 +7,7 @@ class SimplePlayer:public Player
         {
             return minimum;
         };
-
+        //////////////////
         bool draw(Card dealer, const Hand &player)
         {
             HandValue hand = player.handValue();
@@ -28,7 +28,7 @@ class SimplePlayer:public Player
                     {
                         return true;
                     }
-                }
+                }//////////////////   
                 else if (hand.count >= 13 && hand.count <= 16)
                 {
                     if(dealerPoint >= 2 && dealerPoint <= 6)
@@ -66,9 +66,8 @@ class SimplePlayer:public Player
                 {
                     return false;
                 }
-            }     
+            }//////////////////        
         };
-
         void expose(Card c){};
         void shuffled(){};
 };
@@ -94,7 +93,7 @@ class CountingPlayer : public Player
             else
             {
                 return minimum;
-            }
+            }//////////////////
         };
 
         bool draw(Card dealer, const Hand &player)
@@ -112,7 +111,7 @@ class CountingPlayer : public Player
             else if(point >= 10)
             {
                 count--;
-            }
+            }//////////////////
         };
         void shuffled()
         {
@@ -123,5 +122,5 @@ class CountingPlayer : public Player
 static CountingPlayer countingPlayer;
 extern Player *get_Counting()
 {   
-    return &countingPlayer;   
+    return &countingPlayer;//////////////////   
 };
