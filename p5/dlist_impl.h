@@ -4,13 +4,13 @@
 #include "dlist.h"
 using namespace std;
 template <class T>
-bool Dlist<T>::isEmpty() const
+bool Dlist<T>::isEmpty() const //Check whether is empty
 {
     return (first == NULL);
 };
 
 template <class T>
-void Dlist<T>::insertFront(T *op)
+void Dlist<T>::insertFront(T *op) //Insert to front
 {
     node* temp = new node;
     temp->op = op;
@@ -28,7 +28,7 @@ void Dlist<T>::insertFront(T *op)
 }
 
 template <class T>
-void Dlist<T>::insertBack(T *op)
+void Dlist<T>::insertBack(T *op) //Insert to back
 {
     node *temp = new node;
     temp->op = op;
@@ -90,29 +90,29 @@ T* Dlist<T>::removeBack() //TODO Empty Check
 }
 
 template <class T>
-Dlist<T>::Dlist():first(NULL),last(NULL){}
+Dlist<T>::Dlist():first(NULL),last(NULL){} //Constructor 
 
 template <class T>
-Dlist<T>::Dlist(const Dlist<T> &l)
+Dlist<T>::Dlist(const Dlist<T> &l) //Copy function
 {
     copyAll(l);
 }
 
 template <class T>
-Dlist<T>& Dlist<T>::operator=(const Dlist<T> &l)
+Dlist<T>& Dlist<T>::operator=(const Dlist<T> &l) //Assignment function
 {
     removeAll();
     copyAll(l);
 }
 
 template <class T>
-Dlist<T>::~Dlist()
+Dlist<T>::~Dlist() //Destructor
 {
     removeAll();
 }
 
 template <class T>
-void Dlist<T>::removeAll()
+void Dlist<T>::removeAll()//Remove all function
 {
     while(!isEmpty())
     {
@@ -121,7 +121,7 @@ void Dlist<T>::removeAll()
 }
 
 template <class T>
-void Dlist<T>::copyAll(const Dlist<T> &l)
+void Dlist<T>::copyAll(const Dlist<T> &l)//Copy All function
 {
     if(l->isEmpty())
     {

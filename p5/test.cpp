@@ -1,24 +1,16 @@
 #include <iostream>
-#include "dlist.h"
+
 using namespace std;
 
-int main(int argc, char *argv[])
+class A{
+    public:
+        A(){};
+        A(int a){};
+};
+
+int main()
 {
-    int result = 0;
-
-    Dlist<int> ilist;
-    int *ip = new int(1);
-    ilist.insertFront(ip);
-
-    ip = ilist.removeFront();
-    if(*ip != 1)
-        result = -1;
-    delete ip;
-
-    if(!ilist.isEmpty())
-        result = -1;
-
-    //cout<<result;
-
-    return result;
+    A a;
+    a = A(1);
+    return 0;
 }

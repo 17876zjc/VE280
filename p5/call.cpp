@@ -4,50 +4,19 @@
 #include "dlist.h"
 using namespace std;
 
-enum Status{
+enum Status{ //Status enum
     regular,silver,gold,platinum
 };
 
-string FullStatus(Status a)
-{
-    switch (a)
-    {
-    case regular:
-        return string("regular");
-    case silver:
-        return string("silver");
-    case gold:
-        return string("gold");
-    case platinum:
-        return string("platinum");
-    }
-    cout<<"Wrong Status!"<<endl;
-    exit(20);
-}
+string FullStatus(Status a);
+//EFFECTS: convert the status enumerate to string
+//MODIFIES: Nothing
 
-Status Str2Status(string str)
-{
-    if(str == "regular")
-    {
-        return regular;
-    }
-    if(str == "silver")
-    {
-        return silver;
-    }
-    if(str == "gold")
-    {
-        return gold;
-    }
-    if(str == "platinum")
-    {
-        return platinum;
-    }
-    cout<<"No matching status!"<<endl;
-    exit(30);
-}
+Status Str2Status(string str);
+//EFFECTS: convert a string to the corresponding enumerate
+//MODIFIES: Nothing
 
-class Customer
+class Customer //Customer class
 {
     private:
         int timestamp;
@@ -56,32 +25,33 @@ class Customer
         int duration;
     public:
         Customer(){};
+        //EFFECTS: Default constructor
+        //MODIFIES: Nothing
         void set(int,string,string,int);
-        int getTimestamp(){return timestamp;};
-        int getStatus(){return (int)status;};
-        int getDuration(){return duration;};
-        string getName(){return name;};
+        //EFFECTS: Setup the opject
+        //MODIFIES: this
+        int getTimestamp()const{return timestamp;};
+        //EFFECTS: Return the timestamp
+        //MODIFIES: Nothing
+        int getStatus()const{return (int)status;};
+        //EFFECTS: Return status
+        //MODIFIES: Nothing
+        int getDuration()const{return duration;};
+        //EFFECTS: Return duration
+        //MODIFIES: Nothing
+        string getName()const{return name;};
+        //EFFECTS: Return name
+        //MODIFIES: Nothing
         void printGetCall()const;
+        //EFFECTS: Print the get call message
+        //MODIFIES: Nothing
         void printAnserCall()const;
+        //EFFECTS: Print the Anser call message
+        //MODIFIES: Nothing
         ~Customer(){};
+        //EFFECTS: Default destructor
+        //MODIFIES: Nothing
 };
-
-void Customer::set(int t, string n, string s,int d)
-{
-    timestamp = t;
-    name = n;
-    duration = d;
-    status = Str2Status(s);
-}
-
-void Customer::printGetCall()const
-{
-    cout<<"Call from "<<name<<" a "<<FullStatus(status)<<" member"<<endl;
-}
-
-void Customer::printAnserCall()const{
-    cout<<"Ansering call from "<<name<<endl;
-}
 
 int main()
 {
@@ -95,6 +65,11 @@ int main()
     //When the last customer stored and nothing to read: False
     Customer* tempCustomer = NULL;
     cin >> num;
+    if(num == 0)
+    {
+        cout<<"Starting tick #"<<currTick<<endl;
+        return 0;
+    }
     while(num > 0 || 
         !customer[0].isEmpty() || !customer[1].isEmpty() || 
         !customer[2].isEmpty() || !customer[3].isEmpty() || 
@@ -164,4 +139,59 @@ int main()
     }
     cout<<"Starting tick #"<<currTick<<endl;
 }
-    
+
+string FullStatus(Status a) //Convert a status enum to string
+{
+    switch (a)
+    {
+    case regular:
+        return string("regular");
+    case silver:
+        return string("silver");
+    case gold:
+        return string("gold");
+    case platinum:
+        return string("platinum");
+    }
+    cout<<"Wrong Status!"<<endl;
+    exit(20);
+}
+
+Status Str2Status(string str) //Convert a string to the status enum
+{
+    if(str == "regular")
+    {
+        return regular;
+    }
+    if(str == "silver")
+    {
+        return silver;
+    }
+    if(str == "gold")
+    {
+        return gold;
+    }
+    if(str == "platinum")
+    {
+        return platinum;
+    }
+    cout<<"No matching status!"<<endl;
+    exit(30);
+}
+
+void Customer::set(int t, string n, string s,int d) //Set a customer
+{
+    timestamp = t;
+    name = n;
+    duration = d;
+    status = Str2Status(s);
+}
+
+void Customer::printGetCall()const //Get call message
+{
+    cout<<"Call from "<<name<<" a "<<FullStatus(status)<<" member"<<endl;
+}
+
+void Customer::printAnserCall()const{ //Answer call message
+    cout<<"Answering call from "<<name<<endl;
+}

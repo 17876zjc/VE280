@@ -4,18 +4,44 @@
 using namespace std;
 
 void RPN();
+//EFFECTS: Simulate the calculator.
+//MODIFIES: Stack 
 bool isInt(string& str);
+//EFFECTS: Check whether a string is a positive integer
+//MODIFIES: Nothing
 bool isMinusOp(char c){return c=='-';}
+//EFFECTS: Check whether a character is a minus operator
+//MODIFIES: Nothing
 bool isNumber(char c){return (c >= '0' && c <= '9');}
+//EFFECTS: Check whether a character is numerical
+//MODIFIES: Nothing
 int RPNop(char c, Dlist<int>& stack);
+//EFFECTS: Check the char and call the corresponding function
+//MODIFIES: stack
 int RPNadd_minus_times(char c, Dlist<int> &stack);
+//EFFECTS: Function for add minus and times
+//MODIFIES: stack
 int RPNdivide(Dlist<int> &stack);
+//EFFECTS: Function for doing divide
+//MODIFIES: stack
 int RPNn(Dlist<int> &stack);
+//EFFECTS: changing the top most mumber to its negative
+//MODIFIES: stack
 int RPNd(Dlist<int> &stack);
+//EFFECTS: Duplicate the top most number
+//MODIFIES: stack
 int RPNr(Dlist<int> &stack);
+//EFFECTS: Reverse the top 2 numbers
+//MODIFIES: stack
 int RPNp(Dlist<int> &stack);
+//EFFECTS: Print the top most number
+//MODIFIES: Nothing
 int RPNc(Dlist<int> &stack);
+//EFFECTS: Clear all the numbers in this stack
+//MODIFIES: stack
 int RPNa(Dlist<int> &stack);
+//EFFECTS: Print all the numbers in this stack
+//MODIFIES: Nothing
 //Return value::
 //0: No error
 //1: "Bad input\n"
@@ -28,7 +54,7 @@ int main()
     RPN();
 }
 
-void RPN()
+void RPN()// The main function
 {
     Dlist<int> stack;
     string str;
@@ -72,7 +98,7 @@ void RPN()
     }
 }
 
-bool isInt(string& str)
+bool isInt(string& str) //Check whether a string is a positive int
 {
     if(str.length() == 1)
     {
@@ -89,7 +115,7 @@ bool isInt(string& str)
     return true;
 }
 
-int RPNop(char c, Dlist<int>& stack)
+int RPNop(char c, Dlist<int>& stack) //Do the opertator check
 {
     switch (c)
     {
@@ -118,7 +144,7 @@ int RPNop(char c, Dlist<int>& stack)
     }
 }
 
-int RPNadd_minus_times(char ch,Dlist<int> &stack)
+int RPNadd_minus_times(char ch,Dlist<int> &stack)//Add minus and times
 {
     int *a = NULL, *b = NULL;
     try
@@ -153,7 +179,7 @@ int RPNadd_minus_times(char ch,Dlist<int> &stack)
     return 0;
 }
 
-int RPNdivide(Dlist<int> &stack)
+int RPNdivide(Dlist<int> &stack)//Division
 {
     int *a = NULL, *b = NULL;
     try
@@ -184,7 +210,7 @@ int RPNdivide(Dlist<int> &stack)
     return 0;
 }
 
-int RPNn(Dlist<int> &stack)
+int RPNn(Dlist<int> &stack) // negative
 {
     int *a = NULL;
     try
@@ -200,7 +226,7 @@ int RPNn(Dlist<int> &stack)
     return 0;
 }
 
-int RPNd(Dlist<int> &stack)
+int RPNd(Dlist<int> &stack)// duplicate
 {
     int *a = NULL;
     try
@@ -218,7 +244,7 @@ int RPNd(Dlist<int> &stack)
     return 0;
 }
 
-int RPNr(Dlist<int> &stack)
+int RPNr(Dlist<int> &stack) // reverse
 {
     int *a = NULL; int *b = NULL;
     try
@@ -239,7 +265,7 @@ int RPNr(Dlist<int> &stack)
     return 0;
 }
 
-int RPNp(Dlist<int> &stack)
+int RPNp(Dlist<int> &stack) //print
 {
     int *a = NULL;
     try
@@ -255,7 +281,7 @@ int RPNp(Dlist<int> &stack)
     return 0;
 }
 
-int RPNc(Dlist<int> &stack)
+int RPNc(Dlist<int> &stack) //Clear all
 {
     while(!stack.isEmpty())
     {
@@ -264,7 +290,7 @@ int RPNc(Dlist<int> &stack)
     return 0;
 }
 
-int RPNa(Dlist<int> &stack)
+int RPNa(Dlist<int> &stack) //Print all
 {
     int *first = NULL;
     try 
